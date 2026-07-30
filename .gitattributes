@@ -1,2 +1,1 @@
 installer/*.py linguist-language=Python
-*.h linguist-vendored
