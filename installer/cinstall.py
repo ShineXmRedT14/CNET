@@ -22,7 +22,7 @@ paths = ["/sbin/ldconfig", "/usr/bin/ldconfig", "/bin/ldconfig", "/usr/sbin/ldco
 ld_conf_path = "/etc/ld.so.conf.d"
 ld_conf_file = os.path.join(ld_conf_path, "cnet.conf")
     
-def ldpath() -> set:
+def ldpath() -> dict:
     try:
         lcpath = shutil.which("ldconfig")
         
@@ -37,7 +37,7 @@ def ldpath() -> set:
     except Exception as e:
         return {"err": str(e), "code": 1}  
     
-def ldconfig() -> set:
+def ldconfig() -> dict:
     try:
         if os.path.isfile(ld_conf_file):
             return {"code": 0}
