@@ -1,5 +1,5 @@
-#include "cnet.h"
-#include "cnet_tcp.h"
+#include <cnet.h>
+#include <cnet_tcp.h>
 
 #define SRC "192.168.0.101"
 #define DST "192.168.0.1"
