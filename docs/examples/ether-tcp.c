@@ -1,5 +1,5 @@
-#include "cnet.h"
-#include "cnet_tcp.h"
+#include <cnet.h>
+#include <cnet_tcp.h>
 
 #define SMAC "11:22:33:44:55:66"
 #define DMAC "00:11:22:33:44:55"
