@@ -1,3 +1,18 @@
+"""
+!
+!
+!
+To ensure the code installs the libraries 
+correctly and without errors
+follow all the instructions in INSTALL.md. 
+Once the installation completes successfully, 
+you will be able to freely and easily
+create your own programs using the CNET library.
+!
+!
+!
+"""
+
 from pathlib import Path
 import shutil
 import platform
