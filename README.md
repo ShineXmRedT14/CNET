@@ -18,7 +18,7 @@ This directory contains the full reference documentation:
 A minimal raw IP socket send, using only what's documented here:
 
 ```c
-#include "cnet.h"
+#include <cnet.h>
 
 int main(void)
 {
