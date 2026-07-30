@@ -1,1 +1,3 @@
+installer/*.py linguist-vendored=false
+installer/*.py linguist-generated=false
 installer/*.py linguist-language=Python
