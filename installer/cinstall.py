@@ -13,85 +13,82 @@ create your own programs using the CNET library.
 !
 """
 
-from pathlib import Path
 import shutil
 import platform
+import os
 import subprocess
-import random as rn
-import time as tm
 
-paths = ["sbin/ldconfig", "/usr/sbin/ldconfig", "/bin/ldconfig"]
-ncd = Path.cwd()
-
-def tsl() -> None:
-    rfl = round(rn.randint(1, 8)/10,  2)
-    tm.sleep(rfl)
+paths = ["/sbin/ldconfig", "/usr/bin/ldconfig", "/bin/ldconfig", "/usr/sbin/ldconfig"]
+ld_conf_path = "/etc/ld.so.conf.d"
+ld_conf_file = os.path.join(ld_conf_path, "cnet.conf")
+    
+def ldpath() -> set:
+    try:
+        lcpath = shutil.which("ldconfig")
+        
+        if lcpath:
+            return {"path": lcpath, "code": 0}
+        else:
+            for ncpath in paths:
+                if os.path.isfile(ncpath):
+                    return {"path": ncpath, "code": 0}
+                
+        return {"err": "path-not-found", "code": 1}
+    except Exception as e:
+        return {"err": str(e), "code": 1}  
+    
+def ldconfig() -> set:
+    try:
+        if os.path.isfile(ld_conf_file):
+            return {"code": 0}
+            
+        try:
+            os.makedirs(ld_conf_path, exist_ok=True)
+            with open(ld_conf_file, "w") as f:
+                f.write("usr/local/lib\n")
+        except:pass
+        
+        return {"code": 0}
+    except Exception as e:
+        return {"err": str(e), "code": 1}
     
 def ldcache() -> str:
     try:
-        lpath = shutil.which("ldconfig")
+        lpath = ldpath()
+        lconf = ldconfig()
         
-        if not lpath:
-            import os
-            for npath in paths:
-                if shutil.which(npath) or os.path.isfile(npath):
-                    lpath = npath
-                    break
-                    
-        if not lpath:
-            return "lconfig failed -> library install failed"
-        else:subprocess.run([lpath], shell=True)
-        
-        return "found ldconfig -> library is installed fully"
+        if lpath["code"] == 0 and lconf["code"] == 0:
+            subprocess.run(lpath["path"], shell=True, check=True)
+        else:
+            if lpath["code"] == 0:
+                return lconf["err"]
+            elif lconf["code"] == 0:
+                return lpath["err"]
+            else: return f"LD/Path-{lpath['err']}\nLD/Config-{lconf['err']}"
+    except subprocess.CalledProcessError as e:
+        return f"subprocess-err-ldconfig: {str(e)}"  
     except Exception as e:
-        return str(e)   
+        return str(e)
     
 def installC() -> str:
     try:
         print("Processing:install")
-        subprocess.run(["cd", f"{ncd}"])
-        print(f"Directory changed -> {ncd}")
-        tsl()
-        subprocess.run(["cp", "-r", "./CNET/headers/*", "/usr/local/include/"], shell=True)
+        for _ in range(0, 2): os.chdir("..")
+        print("Directory ( cd ) -> changed")
+        subprocess.run("cp", "-r", "./CNET/headers/*", "/usr/local/include/", shell=True, check=True)
         print("Copied (cp): From -> ./CNET/headers/*; To -> /usr/local/include/")
-        tsl()
-        subprocess.run(["cp", "-r", "./CNET/libcnet/*", "/usr/local/lib/"], shell=True)
+        subprocess.run("cp", "-r", "./CNET/libcnet/*", "/usr/local/lib/", shell=True, check=True)
         print("Copied (cp): From -> ./CNET/libcnet/*; To -> /usr/local/lib/")
-        tsl()
-        rstr = ldcache()
-            
-        print("\n+] Installed")
-        tsl()
-    
-        return rstr
+        return ldcache()
     except subprocess.CalledProcessError as e:
         return f"!] Installed -> Failed: {e.stderr} (errno={e.returncode})"
     except Exception as e:
         return str(e)
     
-def uninstallC() -> str:
-    try:
-        print("Processing:clean")
-        subprocess.run(["cd", f"{ncd}"])
-        subprocess.run(["rm", "-r", f"{ncd}/CNET"])
-    
-        return "!] Cleaned -> Succesful"
-    except subprocess.CalledProcessError as e:
-        return f"!] Cleaned -> Failed: {e.stderr} (errno={e.returncode})"
-    except Exception as e:
-        return str(e)
-
-def mstruct() -> list:
-    if platform.system() == 'Linux':
-        st1 = installC()
-        st2 = uninstallC()
-        lls = [st1, st2]
-        
-        return lls
-    else: return ["!] Need Linux OS"]
+def mstruct() -> str:
+    if platform.system() == 'Linux' and os.geteuid() == 0:
+        return installC()    
+    else: return "!] Need Linux OS or Root"
 
 if __name__ == "__main__":
-    typs = mstruct()
-    
-    for typ in typs:
-        print(f"\n{typ}")
+    print(mstruct())
