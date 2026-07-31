@@ -5,11 +5,11 @@ if [ -f "$GCCH" ]; then
     N_DIR=$(find / -path */CNET/installer/ 2>/dev/null)
     echo "CNET-install-script -> started ($N_DIR/cnetsh.sh)"
     cd "$N_DIR"
-    cd ..
+    cd CNET
     cd ./src
     gcc -shared -fPIC -O2 -DNDEBUG cnet.c -o /usr/local/lib/cnet.so
     echo "Compiled cnet.c -> cnet.so and moved into /usr/local/lib/"
-    cd ..
+    cd CNET
     cd ./headers
     mv ./* /usr/local/include/
     LD_PATHBIN=$(find / -name ldconfig 2>/dev/null)
