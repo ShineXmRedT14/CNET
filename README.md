@@ -101,6 +101,8 @@ Each of these takes a small "decomposed" struct of plain integers and packs it i
 - [`CNET_IPV6_VTC`](functions/CNET_IPV6_VTC.md) — pack IPv6's Version/Traffic Class/Flow Label field, from a `struct cnet_dipv6`
 - [`CNET_ICMPV6_RSO`](functions/CNET_ICMPV6_RSO.md) — pack a Neighbor Advertisement's Router/Solicited/Override flags (`struct cnet_icmpv6_na.rso`), from a `struct cnet_dicmpv6`
 - [`CNET_VLAN_VDP`](functions/CNET_VLAN_VDP.md) — pack an 802.1Q tag's Priority/Drop-Eligible/VLAN-ID field, from a `struct cnet_dvlan`
+- [`CNET_NTP_TIMESTAMP`](functions/CNET_NTP_TIMESTAMP.md)
+— Return timestamp `struct cnet_ntp_dtime` for NTP protocol
 
 ### Misc
 
