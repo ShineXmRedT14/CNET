@@ -23,7 +23,7 @@ A minimal raw IP socket send, using only what's documented here:
 int main(void)
 {
     // 1. Open a raw socket at the IP layer, for TCP
-    int sockfd = CNET_SOCK(CNET_LAYER_IP, CNET_IP_TCP);
+    int sockfd = CNET_SOCK_IN(CNET_LAYER_IP, CNET_IP_TCP);
 
     // 2. Build the packet
     struct cnet_ip ip = {0};
@@ -55,7 +55,6 @@ For sending many packets at once (up to 64 per call), see
 
 ### Sockets & addressing
 
-- [`CNET_SOCK`](functions/CNET_SOCK.md) — create a raw socket for a given layer/protocol
 - [`CNET_SOCK_ADDR_IN`](functions/CNET_SOCK_ADDR_IN.md) — build a `sockaddr_in` for Layer 3 sending
 - [`CNET_SOCK_ADDR_LL`](functions/CNET_SOCK_ADDR_LL.md) — build a `sockaddr_ll` for Layer 2 sending
 - [`CNET_GET_IF`](functions/CNET_GET_IF.md) — find the first usable network interface
