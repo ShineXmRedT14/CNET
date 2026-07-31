@@ -346,3 +346,15 @@ uint16_t CNET_L4_CSUM(void *cip, void *ndata, size_t nlen)
 	
 	return (uint16_t)(~sum);
 }
+
+struct cnet_ntp_dtime CNET_NTP_TIMESTAMP()
+{
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	
+	struct cnet_ntp_dtime ts;
+	ts.sec = tv.tv_sec + 2208988800UL;
+	ts.frc = (uint32_t)((double)tv.tv_usec * (4294967296.0/1000000.0));
+	
+	return ts;
+} 
