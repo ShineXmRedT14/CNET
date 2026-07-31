@@ -2,6 +2,12 @@
 
 if command -v gcc >/dev/null 2>&1; then
     N_DIR=$(find / -path */CNET/installer 2>/dev/null)
+
+    if [ -z "$N_DIR" ]; then
+        echo "Not found Path CNET/installer -> error/exit"
+        exit 1
+    fi
+
     echo "CNET-install-script -> started ($N_DIR/cnetsh.sh)"
     cd "$N_DIR"
     cd ..
