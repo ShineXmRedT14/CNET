@@ -1,7 +1,6 @@
 #!/bin/bash
 
-GCCH="gcc"
-if [ -f "$GCCH" ]; then
+if command -v gcc >/dev/null 2>&1; then
     N_DIR=$(find / -path */CNET/installer/ 2>/dev/null)
     echo "CNET-install-script -> started ($N_DIR/cnetsh.sh)"
     cd "$N_DIR"
