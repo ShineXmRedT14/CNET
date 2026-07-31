@@ -2,7 +2,8 @@
 ---
 1. git clone https://github.com/ShineXmRedT14/CNET . ( or downoload zip in the . directory )
 2. cd /CNET/installer/
-2. sudo ./cnetsh.sh
+3. chmod +x ./test.sh
+4. sudo ./cnetsh.sh
 ---
 After you doing this you can easily use CNET library:
 
