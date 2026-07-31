@@ -101,6 +101,12 @@ struct cnet_dvlan
 	int p;
 };
 
+struct cnet_ntp_dtime
+{
+	uint32_t sec;
+	uint32_t frc;	
+};
+
 typedef enum
 {
 	CNET_SCFL = 0,
@@ -110,6 +116,7 @@ typedef enum
 	CNET_ERR_NIFACE = -4
 } cnet_errno_t;
 
+struct cnet_ntp_dtime CNET_NTP_TIMESTAMP();
 int CNET_RAND(int min, int max);
 static inline struct sockaddr_in CNET_SOCK_ADDR_IN(struct cnet_ip *cip);
 struct sockaddr_ll CNET_SOCK_ADDR_LL(int sock);
