@@ -218,6 +218,7 @@ static inline void CNET_RAND_MAC(void *nmac)
 	struct cnet_ether_bytes *ceth = (struct cnet_ether_bytes *)nmac;
 	
 	for (int i = 0; i < 6; i++) {ceth->bytes[i]=(uint8_t)(CNET_RAND(0, 255));}
+ ceth->bytes[0] = (ceth->bytes[0] & 0xFE) | 0x02;
 }
 
 static inline void CNET_SET_DMAC(void *eth, void *dbytes)
