@@ -41,7 +41,7 @@ struct cnet_frame_probe_resp
 	struct cnet_frame_hdr cnet_hdr;
 	uint64_t tstamp;
 	uint16_t interval;
-	uint16_t info
+	uint16_t info;
 }__attribute__((packed));
 
 #endif
