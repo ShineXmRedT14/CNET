@@ -18,6 +18,7 @@ Deleted functions and files for esp32
 | `CNET_BUFFER_INIT_ALL` | Deleted |
 | `CNET_BUFFER_INIT_SET` | Deleted |
 | `CNET_BURST` | Deleted |
+| `CNET_FRAME_FCS` | Deleted |
 
 ## Files
 
