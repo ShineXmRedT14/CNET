@@ -11,6 +11,7 @@ struct cnet_frame_cf
 	uint16_t id;
 	uint8_t ra[6];
 	uint8_t bssid[6];
+    uint8_t fcs[4];
 }__attribute__((packed));
 
 struct cnet_frame_cf_ack
@@ -19,6 +20,7 @@ struct cnet_frame_cf_ack
 	uint16_t id;
 	uint8_t ra[6];
 	uint8_t bssid[6];
+    uint8_t fcs[4];
 }__attribute__((packed));
 
 #endif
