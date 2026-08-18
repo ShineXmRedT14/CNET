@@ -66,8 +66,6 @@
 #define CNET_PORT_KAFKA 9092
 #define CNET_PORT_MDB 27017
 
-#define MEGASIZE 4
-#define SIZEBUFF() (MEGASIZE*1024*1024)
 #define IHL_LEN(s) (s*4)
 #define IHL(s) ((20+s)/4)
 
