@@ -11,6 +11,7 @@ struct cnet_frame_psp
 	uint16_t aid;
 	uint8_t bssid[6];
 	uint8_t ta[6];
+    uint8_t fcs[4];
 }__attribute__((packed));
 
 #endif
