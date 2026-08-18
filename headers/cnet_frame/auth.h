@@ -11,6 +11,7 @@ struct cnet_frame_auth
 	uint16_t auth;
 	uint16_t seq;
 	uint16_t code;
+    uint8_t fcs[4];
 }__attribute__((packed));
 
 #endif
