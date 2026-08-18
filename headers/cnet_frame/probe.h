@@ -34,6 +34,9 @@ struct cnet_frame_probe_rates
 struct cnet_frame_probe_req
 {
 	struct cnet_frame_hdr cnet_hdr;
+    struct cnet_frame_probe_body cnet_probe_body;
+    struct cnet_frame_probe_rates cnet_probe_rate;
+    uint8_t fcs[4];
 }__attribute__((packed));
 
 struct cnet_frame_probe_resp
@@ -42,6 +45,7 @@ struct cnet_frame_probe_resp
 	uint64_t tstamp;
 	uint16_t interval;
 	uint16_t info;
+    uint8_t fcs[4];
 }__attribute__((packed));
 
 #endif
