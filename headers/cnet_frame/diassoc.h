@@ -9,6 +9,7 @@ struct cnet_frame_diassoc
 {
 	struct cnet_frame_hdr cnet_hdr;
 	uint16_t code;
+    uint8_t fcs[4];
 }__attribute__((packed));
 
 #endif
