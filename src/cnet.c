@@ -357,4 +357,25 @@ struct cnet_ntp_dtime CNET_NTP_TIMESTAMP()
 	ts.frc = (uint32_t)((double)tv.tv_usec * (4294967296.0/1000000.0));
 	
 	return ts;
-} 
+}
+
+void CNET_FRAME_FCS(struct cnet_frame_fcs *ffcs, void *data, size_t len)
+{
+	uint8_t *bytes = (uint8_t *)data;
+	uint32_t crc = 0xFFFFFFFF;
+
+	for (size_t i = 0; i < len; i++)
+	{
+		for (int bit = 0; bit < 8; bit++)
+		{
+			uint32_t ent = (crc ^ (bytes[i] >> bit)) & 1;
+			crc >>= 1;
+			if (ent)
+			{
+				crc ^= 0xEDB88320;
+			}
+		}
+	}
+
+	ffcs->CNET_FRAME_MACROS_FCS32 = crc ^ 0xFFFFFFFF;
+}
