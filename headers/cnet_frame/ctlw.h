@@ -12,6 +12,7 @@ struct cnet_frame_ctlw
 	uint8_t ra[6];
 	uint16_t frame;
 	uint8_t ht[4];
+    uint8_t fcs[4];
 }__attribute__((packed));
 
 #endif
