@@ -32,6 +32,16 @@ Input to `CNET_VLAN_VDP()` — the three logical fields packed into the 16-bit `
 | `d` | `int` | Drop Eligible Indicator (1 bit used) |
 | `p` | `int` | Priority Code Point, see `CNET_VLAN_PCP_*` (3 bits used) |
 
+## `struct cnet_frame_fcs`
+
+Input to `CNET_FRAME_FCS()`
+
+| Field | Type | Meaning |
+|---|---|---|
+| `fcs32` | `uint32_t` | FCS 32 bits |
+| `fcs16` | `uint16_t` | FCS 2-16 bits |
+| `fcs8` | `uint8_t` | FCS 4-8 bits |
+
 ## `cnet_errno_t` (enum)
 
 Return type for the `CNET_GET_IF()` / `CNET_GET_IP()` / `CNET_GET_MAC()` family — a small negative-on-error convention.
