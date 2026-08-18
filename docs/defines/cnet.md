@@ -74,6 +74,16 @@ These back the send buffer and IP header-length math; you rarely need them direc
 | `IHL_LEN(s)` | `(s*4)` | Converts an IHL word-count (`s`) into a byte length |
 | `IHL(s)` | `((20+s)/4)` | Converts extra option bytes (`s`) into an IHL word-count for `struct cnet_ip.ihl` |
 
+## Macros
+
+Macros for structures
+
+| Define | Expansion | Meaning |
+|---|---|---|
+| `CNET_FRAME_MACROS_FCS32` | `fcs.fcs32` | Macros for struct cnet_frame_fcs |
+| `CNET_FRAME_MACROS_FCS16` | `fcs.fcs16` | Macros for struct cnet_frame_fcs |
+| `CNET_FRAME_MACROS_FCS8` | `fcs.fcs8` | Macros for struct cnet_frame_fcs |
+
 ## See also
 
 - Struct reference: [`docs/structs/cnet.md`](../structs/cnet.md)
