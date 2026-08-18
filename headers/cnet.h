@@ -107,6 +107,20 @@ struct cnet_ntp_dtime
 	uint32_t frc;	
 };
 
+struct cnet_frame_fcs
+{
+    union
+    {
+        uint32_t fcs32;
+        uint16_t fcs16[2];
+        uint8_t fcs8[4];
+    } fcs;
+}__attribute__((packed));
+
+#define CNET_FRAME_MACROS_FCS32 fcs.fcs32
+#define CNET_FRAME_MACROS_FCS16 fcs.fcs16
+#define CNET_FRAME_MACROS_FCS8 fcs.fcs8
+
 typedef enum
 {
 	CNET_SCFL = 0,
@@ -116,6 +130,7 @@ typedef enum
 	CNET_ERR_NIFACE = -4
 } cnet_errno_t;
 
+void CNET_FRAME_FCS(void *data, size_t len);
 struct cnet_ntp_dtime CNET_NTP_TIMESTAMP();
 int CNET_RAND(int min, int max);
 static inline struct sockaddr_in CNET_SOCK_ADDR_IN(struct cnet_ip *cip);
