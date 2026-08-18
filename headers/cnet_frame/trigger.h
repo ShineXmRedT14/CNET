@@ -12,6 +12,7 @@ struct cnet_frame_trigger
 	uint8_t ra[6];
 	uint8_t ta[6];
 	uint64_t info;
+    uint8_t fcs[4];
 }__attribute__((packed));
 
 #endif
