@@ -11,6 +11,7 @@ struct cnet_frame_reassoc_req
 	uint16_t info;
 	uint16_t interval;
 	uint8_t ap[6];
+    uint8_t fcs[4];
 }__attribute__((packed));
 
 struct cnet_frame_reassoc_resp
@@ -19,6 +20,7 @@ struct cnet_frame_reassoc_resp
 	uint16_t info;
 	uint16_t code;
 	uint16_t id;
+    uint8_t fcs[4];
 }__attribute__((packed));
 
 #endif
