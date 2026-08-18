@@ -13,6 +13,7 @@ struct cnet_frame_block_ackr
 	uint8_t ta[6];
 	uint16_t ctl;
 	uint16_t info;
+    uint8_t fcs[4];
 }__attribute__((packed));
 
 struct cnet_frame_block_ack
@@ -31,6 +32,7 @@ struct cnet_frame_block_ack
 		uint32_t b32it[32];
 		uint64_t b64it[16];
 	} map;
+    uint8_t fcs[4];
 }__attribute__((packed));
 
 #define CNET_FRAME_BLOCK_MACROS_BIT8 map.b8it
