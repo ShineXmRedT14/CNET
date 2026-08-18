@@ -11,6 +11,7 @@ struct cnet_frame_beacon
 	uint64_t tstamp;
 	uint16_t bint;
 	uint16_t cinfo;
+    uint8_t fcs[4];
 }__attribute__((packed));
 
 #endif
