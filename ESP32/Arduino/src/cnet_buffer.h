@@ -1,7 +1,7 @@
 #ifndef CNET_BUFFER_H
 #define CNET_BUFFER_H
 
-#include <sys/types.h>
+#include <stddef.h>
 #include <stdint.h>
 
 #define APX 2048
