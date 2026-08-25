@@ -8,7 +8,7 @@
 
 struct cnet_buffer
 {
-    uint8_t buff[APX]
+    uint8_t buff[APX];
     size_t bytesize;
 }__attribute__((packed));
 
