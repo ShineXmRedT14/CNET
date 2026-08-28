@@ -10,7 +10,6 @@
 #include <sys/types.h>
 #include <string.h>
 #include <stdlib.h>
-#include <endian.h>
 #include <time.h>
 
 #include <cnet_ip.h>
@@ -218,8 +217,8 @@ static inline void CNET_SIZE_SET(struct cnet_buffer *cbuf, size_t len)
 
 static inline uint16_t CNET_BIG16(uint16_t bdata)
 {
-#if __BYTE_ORDER == __LITTLE_ENDIAN
-	return (uint16_t)(bdata & 0x00FF) << 8 | (bdata & 0xFF00) >> 8;
+#if defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+	return (uint16_t)((bdata & 0x00FF) << 8 | (bdata & 0xFF00) >> 8);
 #else
     return bdata;
 #endif
@@ -227,8 +226,8 @@ static inline uint16_t CNET_BIG16(uint16_t bdata)
 
 static inline uint16_t CNET_LITTLE16(uint16_t bdata)
 {
-#if __BYTE_ORDER == __BIG_ENDIAN
-    return (uint16_t)(bdata & 0x00FF) << 8 | (bdata & 0xFF00) >> 8;
+#if defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
+    return (uint16_t)((bdata & 0x00FF) << 8 | (bdata & 0xFF00) >> 8);
 #else
     return bdata;
 #endif
@@ -236,8 +235,8 @@ static inline uint16_t CNET_LITTLE16(uint16_t bdata)
 
 static inline uint32_t CNET_BIG32(uint32_t bdata)
 {
-#if __BYTE_ORDER == __LITTLE_ENDIAN
-	return (uint32_t)(bdata & 0x000000FF) << 24 | (bdata & 0x0000FF00) << 8 | (bdata & 0x00FF0000) >> 8 | (bdata & 0xFF000000) >> 24;
+#if defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+	return (uint32_t)((bdata & 0x000000FF) << 24 | (bdata & 0x0000FF00) << 8 | (bdata & 0x00FF0000) >> 8 | (bdata & 0xFF000000) >> 24);
 #else
     return bdata;
 #endif
@@ -245,8 +244,8 @@ static inline uint32_t CNET_BIG32(uint32_t bdata)
 
 static inline uint32_t CNET_LITTLE32(uint32_t bdata)
 {
-#if __BYTE_ORDER == __BIG_ENDIAN
-    return (uint32_t)(bdata & 0x000000FF) << 24 | (bdata & 0x0000FF00) << 8 | (bdata & 0x00FF0000) >> 8 | (bdata & 0xFF000000) >> 24;
+#if defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
+    return (uint32_t)((bdata & 0x000000FF) << 24 | (bdata & 0x0000FF00) << 8 | (bdata & 0x00FF0000) >> 8 | (bdata & 0xFF000000) >> 24);
 #else
     return bdata;
 #endif
