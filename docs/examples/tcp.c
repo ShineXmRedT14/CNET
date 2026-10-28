@@ -35,7 +35,7 @@ int main()
 	cip->CNET_IP_MACROS_SRC32 = src.bytes.b32its;
 	cip->CNET_IP_MACROS_DST32 = dst.bytes.b32its;
 	
-	struct cnet_tcp *tcp = (struct cnet_tcp *)(pkt + IHL_LEN(cip->ihl));
+	struct cnet_tcp *tcp = (struct cnet_tcp *)(pkt + IP_IHL_LEN(cip->ihl));
 	tcp->src = CNET_BIG16(SPORT);
 	tcp->dst = CNET_BIG16(DPORT);
 	tcp->seq = CNET_BIG32(8);
