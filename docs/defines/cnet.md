@@ -71,8 +71,6 @@ These back the send buffer and IP header-length math; you rarely need them direc
 |---|---|---|
 | `MEGASIZE` | `4` | Multiplier used by `SIZEBUFF()` |
 | `SIZEBUFF()` | `(MEGASIZE*1024*1024)` | Socket send-buffer size in bytes (4 MiB), used to size `SO_SNDBUF` in `CNET_SOCK()` |
-| `IHL_LEN(s)` | `(s*4)` | Converts an IHL word-count (`s`) into a byte length |
-| `IHL(s)` | `((20+s)/4)` | Converts extra option bytes (`s`) into an IHL word-count for `struct cnet_ip.ihl` |
 
 ## Macros
 
