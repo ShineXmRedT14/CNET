@@ -77,8 +77,6 @@
 
 #define MEGASIZE 4
 #define SIZEBUFF() (MEGASIZE*1024*1024)
-#define IHL_LEN(s) (s*4)
-#define IHL(s) ((20+s)/4)
 
 struct cnet_dipv6
 {
@@ -130,6 +128,8 @@ typedef enum
 	CNET_ERR_NIFACE = -4
 } cnet_errno_t;
 
+int IP_IHL_LEN(int data);
+int IP_IHL(int data);
 void CNET_FRAME_FCS(void *data, size_t len);
 struct cnet_ntp_dtime CNET_NTP_TIMESTAMP();
 int CNET_RAND(int min, int max);
@@ -165,6 +165,14 @@ uint16_t CNET_L4_CSUM(void *cip, void *ndata, size_t nlen);
 void CNET_IP_BYTES(void *cipb, char sip[]);
 void CNET_MAC_BYTES(void *ceth, char mac[]);
 static inline void cnet_xorrand(uint32_t state, uint32_t *xorstate);
+
+int IP_IHL_LEN(int data) {
+	return data*4;
+}
+
+int IP_IHL(int data) {
+	return (20+data)/4;
+}
 
 static inline void cnet_xorrand(uint32_t state, uint32_t *xorstate)
 {
