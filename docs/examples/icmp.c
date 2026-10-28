@@ -33,7 +33,7 @@ int main()
 	cip->CNET_IP_MACROS_SRC32 = src.bytes.b32its;
 	cip->CNET_IP_MACROS_DST32 = dst.bytes.b32its;
 	
-	struct cnet_icmp *icmp = (struct cnet_icmp *)(pkt + IHL_LEN(cip->ihl));
+	struct cnet_icmp *icmp = (struct cnet_icmp *)(pkt + IP_IHL_LEN(cip->ihl));
 	icmp->type = CNET_ICMP_ECHO;
 	icmp->code = CNET_ICMP_CODE_HOST_ISOLATED;
 	icmp->CNET_ICMP_MACROS_ECHO.id = CNET_BIG16(67);
