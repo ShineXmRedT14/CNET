@@ -35,7 +35,7 @@ int main()
 	cip->CNET_IP_MACROS_SRC32 = src.bytes.b32its;
 	cip->CNET_IP_MACROS_DST32 = dst.bytes.b32its;
 	
-	struct cnet_udp *udp = (struct cnet_udp *)(pkt + IHL_LEN(cip->ihl));
+	struct cnet_udp *udp = (struct cnet_udp *)(pkt + IP_IHL_LEN(cip->ihl));
 	udp->src = CNET_BIG16(SPORT);
 	udp->dst = CNET_BIG16(DPORT);
 	udp->len = CNET_BIG16(sizeof(*udp));
