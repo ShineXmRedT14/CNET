@@ -1,6 +1,5 @@
 # Caveats and known issues
 
-The library is labelled **Alpha** and the project's own
 [`IMPORTANTLY.md`](../IMPORTANTLY.md) states that many protocols have not been
 fully tested. This page lists behaviours you should know before relying on
 CNET in production. It documents the current source; it does not change it.
@@ -31,14 +30,6 @@ CNET in production. It documents the current source; it does not change it.
 
 ## Linux
 
-- **`CNET_SOCK_ADDR_LL()` calls `CNET_GET_IF()`, which is not declared or
-  defined** in the current headers. Build the `sockaddr_ll` manually (as in
-  [examples.md](examples.md#1-linux-ethernet--ipv4--tcp-layer-2)) until this
-  is resolved.
-- **`CNET_PACKET_IP_FAST_SET(..., CNET_IP_OPTIONS)`** sets IHL/length for a
-  60-byte header but still computes the IP checksum over
-  `sizeof(struct cnet_ip)` (20 bytes). After filling the option bytes,
-  recompute `ip->sum` over the full 60-byte header.
 - **Raw sockets need privileges.** Run as root or grant `CAP_NET_RAW`.
 - **`CNET_RING_INIT()` ignores its `layer` argument** when constructing the
   ring socket; the TX ring always uses a raw packet socket.
