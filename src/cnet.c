@@ -165,16 +165,13 @@ definition of CNET_PLATFORM_LINUX in the <cnet_platform.h> file
 	    return ring;
     }
 
-	struct sockaddr_ll CNET_SOCK_ADDR_LL(int sock)
+	struct sockaddr_ll CNET_SOCK_ADDR_LL(struct cnet_route *route, int sock)
     {
-	    struct cnet_route crt;
 	    struct ifreq ifr;
 	    struct sockaddr_ll addr;
 	    CNET_MEMSET(&addr, sizeof(addr));
     	CNET_MEMSET(&ifr, sizeof(ifr));
-	    CNET_MEMSET(&crt, sizeof(crt));
-	    CNET_GET_IF(&crt);
-	    strncpy(ifr.ifr_name, crt.iface, IFNAMSIZ-1);
+	    strncpy(ifr.ifr_name, route->active, IFNAMSIZ-1);
 	    ioctl(sock, SIOCGIFINDEX, &ifr);
 
 	    addr.sll_family = AF_PACKET;
