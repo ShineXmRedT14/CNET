@@ -111,5 +111,4 @@ CNET in production. It documents the current source; it does not change it.
 
 ## Versioning
 
-Current version: `CNET-1.9.01-Alpha` (see [VERSION.md](../VERSION.md)).
-Expect API changes between alpha releases.
+Current version: (see [VERSION.md](../VERSION.md)).
