@@ -201,7 +201,7 @@ Append one timestamp entry to an IPv4 timestamp option. `custom` is
 Convert all 32-bit counters in a `cnet_tcp_info` to big-endian. Pass
 `CNET_TCP_INFO_LOCAL` to skip conversion when the statistics stay local.
 
-### `void CNET_L4_EXPAND(struct cnet_l4_expand_info *info)`
+### `void CNET_EXPAND(struct cnet_expand_info *info)`
 
 Concatenate `info->main` (length `main_count`) followed by each entry of
 `info->options[]` (lengths `options_size[]`) into `info->buffer`. Stops with a
