@@ -97,7 +97,7 @@ struct cnet_ntp_dtime
 	uint32_t frc;
 };
 
-struct cnet_l4_expand_info
+struct cnet_expand_info
 {
     uint8_t *buffer;
     size_t buffer_size;
