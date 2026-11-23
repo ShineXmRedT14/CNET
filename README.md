@@ -94,7 +94,7 @@ Also see [INSTALL.md](INSTALL.md) for detailed installation steps.
 
 ## Status
 
-Current version: **CNET-1.9.01-Alpha** (see [VERSION.md](VERSION.md)).
+Current version: (see [VERSION.md](VERSION.md)).
 Many protocol definitions are provided without state machines or parsers, and
 not every protocol has been tested. Read
 [docs/caveats.md](docs/caveats.md) before using CNET in production.
