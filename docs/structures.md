@@ -39,7 +39,7 @@ Used by `CNET_IPV6_VTC()`.
 | `sec` | `uint32_t` | seconds since 1900 |
 | `frc` | `uint32_t` | fractional second, 2^-32 units |
 
-### `struct cnet_l4_expand_info`
+### `struct cnet_expand_info`
 | Field | Type | Meaning |
 |---|---|---|
 | `buffer` | `uint8_t *` | destination |
