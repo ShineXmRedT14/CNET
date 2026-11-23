@@ -109,7 +109,7 @@ cnet_errno_t CNET_PACKET_ETHER_FAST_SET(union cnet_packet_fast_config *pfc, stru
 #if defined(CNET_PLATFORM_LINUX)
     static inline struct sockaddr_in CNET_SOCK_ADDR_IN(struct cnet_ip *cip);
 	void CNET_BUFFER_CLONE(struct cnet_buffer *cbuff, int cl1, int cl2);
-    struct sockaddr_ll CNET_SOCK_ADDR_LL(int sock);
+    struct sockaddr_ll CNET_SOCK_ADDR_LL(struct cnet_route *route, int sock);
 	cnet_errno_t CNET_CONFIGURE(struct cnet_route *route);
 	static inline void CNET_SIZE_SET(struct cnet_buffer *cbuf, int index, int offset);
 	void CNET_BUFFER_INIT_ALL(struct cnet_buffer *cbuf, int ind, void *addr, int layer);
