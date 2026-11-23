@@ -21,7 +21,7 @@
 #if (defined(CNET_PLATFORM_ESP32) + \
     defined(CNET_PLATFORM_WINDOWS) + \
     defined(CNET_PLATFORM_LINUX)) > 1
-#error "Multiple platforms defined simultaneously!"
+    #error "Multiple platforms defined simultaneously!"
 #endif
 
 #endif
