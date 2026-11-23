@@ -849,10 +849,10 @@ uint16_t CNET_L3_CSUM(void *ndata, size_t nlen)
 	return (uint16_t)(~sum);
 }
 
-void CNET_L4_EXPAND(struct cnet_l4_expand_info *info)
+void CNET_EXPAND(struct cnet_expand_info *info)
 {
 	if (info->buffer == NULL || info->main == NULL || info->main_count == 0 || info->buffer_size == 0) {
-		printf("CNET_L4_EXPAND - ERROR, pointer is NULL or size equal to 0x00\n");
+		printf("CNET_EXPAND - ERROR, pointer is NULL or size equal to 0x00\n");
 		return;
 	}
 
@@ -861,7 +861,7 @@ void CNET_L4_EXPAND(struct cnet_l4_expand_info *info)
 
 	for (int i = 0; i < info->main_count; i++) {
 		if (i + offset >= info->buffer_size) {
-			printf("CNET_L4_EXPAND - ERROR, buffer overflow in main\n");
+			printf("CNET_EXPAND - ERROR, buffer overflow in main\n");
 			return;
 		}
 
@@ -880,7 +880,7 @@ void CNET_L4_EXPAND(struct cnet_l4_expand_info *info)
 
 		for (int i = 0; i < info->options_size[c]; i++) {
 			if (i + offset >= info->buffer_size) {
-			    printf("CNET_L4_EXPAND - ERROR, buffer overflow in options\n");
+			    printf("CNET_EXPAND - ERROR, buffer overflow in options\n");
 			    return;
 		    }
 
