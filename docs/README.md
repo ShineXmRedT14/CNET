@@ -72,8 +72,7 @@ transmit section of the API differs.
 
 ## Version
 
-See [VERSION.md](../VERSION.md). The current line is
-`CNET-1.9.01-Alpha`.
+See [VERSION.md](../VERSION.md).
 
 ## License
 
