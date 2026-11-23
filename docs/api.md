@@ -303,7 +303,7 @@ Copy `len` packets into the mapped ring, waiting until each frame slot is
 Build a `sockaddr_in` whose destination is `ip->dst`. Used for Layer 3
 `sendto()`.
 
-### `struct sockaddr_ll CNET_SOCK_ADDR_LL(int sock)` — Linux only
+### `struct sockaddr_ll CNET_SOCK_ADDR_LL(struct cnet_route *route, int sock)` — Linux only
 Build a `sockaddr_ll` for the first usable interface. Used for Layer 2
 sending.
 
