@@ -683,7 +683,7 @@ cnet_errno_t CNET_PACKET_ETHER_FAST_SET(union cnet_packet_fast_config *pfc, stru
 	return CNET_SCFL;
 }
 
-void CNET_PACKET_IP_FAST_SET_TIMESTAMP(struct cnet_ip_timestamp *timestamp, uint8_t custom, const char *ip)
+void CNET_PACKET_IP_FAST_SET_TIMESTAMP(struct cnet_ip_timestamp *timestamp, uint8_t custom, char *ip)
 {
 	if (custom == CNET_IP_NCUSTOM)
 	{

@@ -95,7 +95,7 @@ void CNET_IP_BYTES(void *cipb, char sip[]);
 void CNET_MAC_BYTES(void *ceth, char mac[]);
 void CNET_FRAME_FCS(struct cnet_frame_fcs *ffcs, void *data, size_t len);
 void CNET_SCTP_CSUM(void *sctp, size_t len);
-void CNET_PACKET_IP_FAST_SET_TIMESTAMP(struct cnet_ip_timestamp *timestamp, uint8_t custom, const char *ip);
+void CNET_PACKET_IP_FAST_SET_TIMESTAMP(struct cnet_ip_timestamp *timestamp, uint8_t custom, char *ip);
 void CNET_PACKET_TCP_FAST_SET_INFO(struct cnet_tcp_info *info, uint8_t flag);
 void CNET_EXPAND(struct cnet_expand_info *info);
 int CNET_RAND(int min, int max);
