@@ -903,10 +903,13 @@ uint16_t CNET_L4_CSUM(uint8_t type, void *l3, void *l4, size_t len)
 		struct cnet_ip *ip = (struct cnet_ip *)l3;
 
 		sum += CNET_BIG16((uint16_t)(ip->proto));
-		uint16_t *src_sum = (uint16_t *)&ip->src.s32rc;
+
+		uint32_t temp_src = ip->src.s32rc;
+		uint16_t *src_sum = (uint16_t *)&temp_src;
 		sum += src_sum[0] + src_sum[1];
 
-		uint16_t *dst_sum = (uint16_t *)&ip->dst.d32st;
+		uint32_t temp_dst = ip->dst.d32st;
+		uint16_t *dst_sum = (uint16_t *)&temp_dst;
 		sum += dst_sum[0] + dst_sum[1];
 
 		sum += CNET_BIG16((uint16_t)len);
@@ -914,12 +917,12 @@ uint16_t CNET_L4_CSUM(uint8_t type, void *l3, void *l4, size_t len)
 	} else if (type == CNET_ETH_IPV6) {
 		struct cnet_ipv6 *ipv6 = (struct cnet_ipv6 *)l3;
 
-		uint16_t *src6_sum = (uint16_t *)&ipv6->src;
+		uint16_t *src6_sum = (uint16_t *)ipv6->src;
 		for (int i = 0; i < 8; i++) {
 			sum += src6_sum[i];
 		}
 
-		uint16_t *dst6_sum = (uint16_t *)&ipv6->dst;
+		uint16_t *dst6_sum = (uint16_t *)ipv6->dst;
 		for (int i = 0; i < 8; i++) {
 			sum += dst6_sum[i];
 		}
