@@ -586,7 +586,7 @@ cnet_errno_t CNET_PACKET_TCP_FAST_SET(union cnet_packet_fast_config *pfc, struct
 	tcp->aseq = CNET_BIG32((uint32_t)pfc->tcp.aseq);
 	tcp->res1 = CNET_TCP_RES1;
 	tcp->res2 = CNET_TCP_RES2;
-	tcp->doff = (uint8_t)pfc->tcp.doff;
+	tcp->doff = (uint8_t)(pfc->tcp.doff & 0x0F);
 	tcp->flags = (uint8_t)(pfc->tcp.flags & 0x3F);
 	tcp->win = CNET_BIG16((uint16_t)pfc->tcp.win);
 	tcp->uptr = CNET_BIG16((uint16_t)pfc->tcp.uptr);
@@ -773,7 +773,7 @@ int CNET_RAND(int min, int max)
 	x ^= x << 5;
 	xorstate = x;
 
-	return (int)(min + (x % (max - min + 1)));
+	return (int)(min + (uint32_t)(x % (max - min + 1)));
 }
 
 void CNET_SCTP_CSUM(void *sctp, size_t len)
@@ -915,16 +915,9 @@ uint16_t CNET_L4_CSUM(uint16_t type, void *l3, void *l4, size_t len)
 	} else if (type == CNET_ETH_IPV6) {
 		struct cnet_ipv6 *ipv6 = (struct cnet_ipv6 *)l3;
 
-		uint16_t temp_src = ipv6->src;
-		uint16_t *src6_sum = (uint16_t *)&temp_src;
-		for (int i = 0; i < 8; i++) {
-			sum += src6_sum[i];
-		}
-
-		uint16_t temp_dst = ipv6->dst;
-		uint16_t *dst6_sum = (uint16_t *)&temp_dst;
-		for (int i = 0; i < 8; i++) {
-			sum += dst6_sum[i];
+		for (int i = 0; i < 16; i += 2) {
+			sum += (uint32_t)ipv6->src[i] | ((uint32_t)ipv6->src[i+1] << 8);
+			sum += (uint32_t)ipv6->dst[i] | ((uint32_t)ipv6->dst[i+1] << 8);
 		}
 
 		sum += CNET_BIG16((uint16_t)(ipv6->proto));
