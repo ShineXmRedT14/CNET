@@ -115,8 +115,7 @@ definition of CNET_PLATFORM_LINUX in the <cnet_platform.h> file
 
 	    struct ifreq ifr;
 	    CNET_MEMSET(&ifr, sizeof(ifr));
-	    strncpy(ifr.ifr_name, route->active, IFNAMSIZ - 1);
-		ifr.ifr_name[IFNAMSIZ - 1] = '\0';
+	    snprintf(ifr.ifr_name, IFNAMSIZ, "%s", route->active);
 
 	    if (ioctl(ring.sockfd, SIOCGIFINDEX, &ifr) < 0) {
 	    	ring.code = CNET_ERR_IFINDEX;
@@ -172,8 +171,7 @@ definition of CNET_PLATFORM_LINUX in the <cnet_platform.h> file
 	    struct sockaddr_ll addr;
 	    CNET_MEMSET(&addr, sizeof(addr));
     	CNET_MEMSET(&ifr, sizeof(ifr));
-	    strncpy(ifr.ifr_name, route->active, IFNAMSIZ-1);
-		ifr.ifr_name[IFNAMSIZ - 1] = '\0';
+	    snprintf(ifr.ifr_name, IFNAMSIZ, "%s", route->active);
 	    ioctl(sock, SIOCGIFINDEX, &ifr);
 
 	    addr.sll_family = AF_PACKET;
@@ -336,8 +334,7 @@ definition of CNET_PLATFORM_LINUX in the <cnet_platform.h> file
 			struct ifreq ifr;
 			CNET_MEMSET(&ifr, sizeof(ifr));
 
-    		strncpy(ifr.ifr_name, route->active, IFNAMSIZ - 1);
-			ifr.ifr_name[IFNAMSIZ - 1] = '\0';
+    		snprintf(ifr.ifr_name, IFNAMSIZ, "%s", route->active);
 
     		if (ioctl(sockfd, SIOCGIFINDEX, &ifr) < 0) {
     			fprintf(stderr, "SOCK-ERR-IOCTL: %s (errno=%d)\n", strerror(errno), errno);
