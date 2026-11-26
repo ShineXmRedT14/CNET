@@ -116,6 +116,7 @@ definition of CNET_PLATFORM_LINUX in the <cnet_platform.h> file
 	    struct ifreq ifr;
 	    CNET_MEMSET(&ifr, sizeof(ifr));
 	    strncpy(ifr.ifr_name, route->active, IFNAMSIZ - 1);
+		ifr.ifr_name[IFNAMSIZ - 1] = '\0';
 
 	    if (ioctl(ring.sockfd, SIOCGIFINDEX, &ifr) < 0) {
 	    	ring.code = CNET_ERR_IFINDEX;
@@ -172,6 +173,7 @@ definition of CNET_PLATFORM_LINUX in the <cnet_platform.h> file
 	    CNET_MEMSET(&addr, sizeof(addr));
     	CNET_MEMSET(&ifr, sizeof(ifr));
 	    strncpy(ifr.ifr_name, route->active, IFNAMSIZ-1);
+		ifr.ifr_name[IFNAMSIZ - 1] = '\0';
 	    ioctl(sock, SIOCGIFINDEX, &ifr);
 
 	    addr.sll_family = AF_PACKET;
@@ -335,6 +337,7 @@ definition of CNET_PLATFORM_LINUX in the <cnet_platform.h> file
 			CNET_MEMSET(&ifr, sizeof(ifr));
 
     		strncpy(ifr.ifr_name, route->active, IFNAMSIZ - 1);
+			ifr.ifr_name[IFNAMSIZ - 1] = '\0';
 
     		if (ioctl(sockfd, SIOCGIFINDEX, &ifr) < 0) {
     			fprintf(stderr, "SOCK-ERR-IOCTL: %s (errno=%d)\n", strerror(errno), errno);
@@ -773,7 +776,7 @@ int CNET_RAND(int min, int max)
 	x ^= x << 5;
 	xorstate = x;
 
-	return (int)(min + (uint32_t)(x % (max - min + 1)));
+	return min + (int)(x % (uint32_t)(max - min + 1));
 }
 
 void CNET_SCTP_CSUM(void *sctp, size_t len)
@@ -832,8 +835,7 @@ uint16_t CNET_L3_CSUM(void *ndata, size_t nlen)
 
 	if (nlen)
 	{
-		uint8_t temp[2] = {*(uint8_t *)rdata, 0x00};
-		sum += *(uint16_t *)temp;
+		sum += (uint16_t)(*(uint8_t *)rdata);
 	}
 
 	while (sum >> 16)
@@ -931,8 +933,7 @@ uint16_t CNET_L4_CSUM(uint16_t type, void *l3, void *l4, size_t len)
 	} else {return 0x0000;}
 
 	if (copy_len) {
-		uint8_t temp[2] = {*(uint8_t *)bytes, 0x00};
-		sum += *(uint16_t *)temp;
+		sum += (uint16_t)(*(uint8_t *)bytes);
 	}
 
 	while (sum >> 16) {
