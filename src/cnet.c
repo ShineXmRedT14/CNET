@@ -115,7 +115,7 @@ definition of CNET_PLATFORM_LINUX in the <cnet_platform.h> file
 
 	    struct ifreq ifr;
 	    CNET_MEMSET(&ifr, sizeof(ifr));
-	    strncpy(ifr.ifr_name, route.active, IFNAMSIZ - 1);
+	    strncpy(ifr.ifr_name, route->active, IFNAMSIZ - 1);
 
 	    if (ioctl(ring.sockfd, SIOCGIFINDEX, &ifr) < 0) {
 	    	ring.code = CNET_ERR_IFINDEX;

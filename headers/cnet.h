@@ -12,6 +12,7 @@ extern "C" {
     #define _GNU_SOURCE
     #endif
 
+	#include <sys/mman.h>
     #include <sys/socket.h>
     #include <unistd.h>
     #include <sys/ioctl.h>
