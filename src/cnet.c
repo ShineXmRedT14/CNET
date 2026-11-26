@@ -887,7 +887,7 @@ void CNET_EXPAND(struct cnet_expand_info *info)
 	}
 }
 
-uint16_t CNET_L4_CSUM(uint8_t type, void *l3, void *l4, size_t len)
+uint16_t CNET_L4_CSUM(uint16_t type, void *l3, void *l4, size_t len)
 {
 	uint32_t sum = 0x00000000;
 	size_t copy_len = len;

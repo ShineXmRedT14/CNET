@@ -91,7 +91,7 @@ static inline void *CNET_CREATE_LAYER(uint8_t *pkt, int *offset, int size);
 
 uint32_t CNET_GET_IP_TIMESTAMP();
 uint16_t CNET_L3_CSUM(void *ndata, size_t nlen);
-uint16_t CNET_L4_CSUM(uint8_t type, void *l3, void *l4, size_t len);
+uint16_t CNET_L4_CSUM(uint16_t type, void *l3, void *l4, size_t len);
 void CNET_IP_BYTES(void *cipb, char sip[]);
 void CNET_MAC_BYTES(void *ceth, char mac[]);
 void CNET_FRAME_FCS(struct cnet_frame_fcs *ffcs, void *data, size_t len);
