@@ -1,6 +1,6 @@
 # VERSION
 ---
-Current Version: CNET-1.9.11-Alpha
+Current Version: CNET-1.9.52-Alpha
 ---
 # Versions
 ---
@@ -16,3 +16,4 @@ CNET-1.2.0 - Added Windows with Npcap driver support;
 
 CNET-1.9.01-Alpha: Added numerous new functions, updated examples and docs, rewrote installers, changed syntax, fixed multiple critical bugs, new repository and library architecture;
 CNET-1.9.11-Alpha: Fixed some bugs, rewrote expand info structure for truly name (not only l4)
+CNET-1.9.52-Alpha: Fixed very much bugs
