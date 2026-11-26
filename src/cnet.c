@@ -192,8 +192,6 @@ definition of CNET_PLATFORM_LINUX in the <cnet_platform.h> file
 
 	cnet_errno_t CNET_CONFIGURE(struct cnet_route *route)
 	{
-		cnet_errno_t switcher = CNET_SCFL;
-
 		struct ifaddrs *ifaddr;
 		struct ifaddrs *ifa;
 
@@ -264,7 +262,7 @@ definition of CNET_PLATFORM_LINUX in the <cnet_platform.h> file
 			return CNET_ERR_IOCTL;
 		}
 
-		struct sockaddr_in *addr = (struct sockaddr_in *)&ifrq->ifr_addr;
+		struct sockaddr_in *addr = (struct sockaddr_in *)(void *)&ifrq->ifr_addr;
 
 		uint8_t *ibytes = (uint8_t *)&addr->sin_addr;
 		for (int i = 0; i < 4; i++) {route->ip.i8p[i]=ibytes[i];}
@@ -582,16 +580,16 @@ cnet_errno_t CNET_PACKET_TCP_FAST_SET(union cnet_packet_fast_config *pfc, struct
 		pfc->tcp.uptr > 0xFFFF
 	) return CNET_OVERFLOW;
 
-	tcp->src = CNET_BIG16(pfc->tcp.src);
-	tcp->dst = CNET_BIG16(pfc->tcp.dst);
-	tcp->seq = CNET_BIG32(pfc->tcp.seq);
-	tcp->aseq = CNET_BIG32(pfc->tcp.aseq);
+	tcp->src = CNET_BIG16((uint16_t)pfc->tcp.src);
+	tcp->dst = CNET_BIG16((uint16_t)pfc->tcp.dst);
+	tcp->seq = CNET_BIG32((uint32_t)pfc->tcp.seq);
+	tcp->aseq = CNET_BIG32((uint32_t)pfc->tcp.aseq);
 	tcp->res1 = CNET_TCP_RES1;
 	tcp->res2 = CNET_TCP_RES2;
-	tcp->doff = pfc->tcp.doff;
-	tcp->flags = pfc->tcp.flags;
-	tcp->win = CNET_BIG16(pfc->tcp.win);
-	tcp->uptr = CNET_BIG16(pfc->tcp.uptr);
+	tcp->doff = (uint8_t)pfc->tcp.doff;
+	tcp->flags = (uint8_t)(pfc->tcp.flags & 0x3F);
+	tcp->win = CNET_BIG16((uint16_t)pfc->tcp.win);
+	tcp->uptr = CNET_BIG16((uint16_t)pfc->tcp.uptr);
 
 	tcp->sum = CNET_L4_CSUM(type, ip, tcp, sizeof(*tcp));
 
@@ -605,8 +603,8 @@ cnet_errno_t CNET_PACKET_UDP_FAST_SET(union cnet_packet_fast_config *pfc, struct
 		pfc->udp.dst > 0xFFFF
 	) return CNET_OVERFLOW;
 
-	udp->src = CNET_BIG16(pfc->udp.src);
-	udp->dst = CNET_BIG16(pfc->udp.dst);
+	udp->src = CNET_BIG16((uint16_t)pfc->udp.src);
+	udp->dst = CNET_BIG16((uint16_t)pfc->udp.dst);
 	udp->len = CNET_BIG16(sizeof(*udp));
 
 	udp->sum = CNET_L4_CSUM(type, ip, udp, sizeof(*udp));
@@ -650,14 +648,14 @@ cnet_errno_t CNET_PACKET_IP_FAST_SET(union cnet_packet_fast_config *pfc, struct 
 		default:return CNET_UNSUPPORT_IP_PROTOCOL;
 	}
 
-	ip->ihl = IP_IHL_DECODE(ihl);
+	ip->ihl = (uint8_t)(IP_IHL_DECODE(ihl) & 0x0F);
 	ip->version = CNET_IP_VERSION;
 	ip->type = CNET_IP_TYPE;
-	ip->len = CNET_BIG16(ihl+reserve);
-	ip->id = CNET_BIG16(pfc->ip.id);
-	ip->frag = CNET_BIG16(pfc->ip.frag);
-	ip->ttl = pfc->ip.ttl;
-	ip->proto = pfc->ip.proto;
+	ip->len = CNET_BIG16((uint16_t)(ihl+reserve));
+	ip->id = CNET_BIG16((uint16_t)pfc->ip.id);
+	ip->frag = CNET_BIG16((uint16_t)pfc->ip.frag);
+	ip->ttl = (uint8_t)pfc->ip.ttl;
+	ip->proto = (uint8_t)pfc->ip.proto;
 
 	ip->CNET_IP_MACROS_SRC32 = bsrc.bytes.b32its;
 	ip->CNET_IP_MACROS_DST32 = bdst.bytes.b32its;
@@ -678,7 +676,7 @@ cnet_errno_t CNET_PACKET_ETHER_FAST_SET(union cnet_packet_fast_config *pfc, stru
 
 	CNET_SET_SMAC(ether, &bsrc);
 	CNET_SET_DMAC(ether, &bdst);
-	ether->next = CNET_BIG16(pfc->eth.next);
+	ether->next = CNET_BIG16((uint16_t)pfc->eth.next);
 
 	return CNET_SCFL;
 }
@@ -746,14 +744,14 @@ void CNET_PACKET_TCP_FAST_SET_INFO(struct cnet_tcp_info *info, uint8_t flag)
 	info->rth = CNET_BIG32(info->rth);
 }
 
-uint32_t CNET_GET_IP_TIMESTAMP()
+uint32_t CNET_GET_IP_TIMESTAMP(void)
 {
 	struct timespec ts;
 	CNET_MEMSET(&ts, sizeof(ts));
 
 	clock_gettime(CLOCK_REALTIME, &ts);
 
-	uint64_t ms = ((uint64_t)ts.tv_sec * 1000) + (ts.tv_nsec / 1000000);
+	uint64_t ms = ((uint64_t)ts.tv_sec * 1000) + ((uint64_t)ts.tv_nsec / 1000000);
 	uint64_t day_ms = 86400000;
 
 	return (uint32_t)(ms % day_ms);
@@ -775,7 +773,7 @@ int CNET_RAND(int min, int max)
 	x ^= x << 5;
 	xorstate = x;
 
-	return min + (x % (max - min + 1));
+	return (int)(min + (x % (max - min + 1)));
 }
 
 void CNET_SCTP_CSUM(void *sctp, size_t len)
@@ -856,7 +854,7 @@ void CNET_EXPAND(struct cnet_expand_info *info)
 	size_t offset = 0;
 	uint8_t *casted_main = (uint8_t *)info->main;
 
-	for (int i = 0; i < info->main_count; i++) {
+	for (size_t i = 0; i < info->main_count; i++) {
 		if (i + offset >= info->buffer_size) {
 			printf("CNET_EXPAND - ERROR, buffer overflow in main\n");
 			return;
@@ -870,12 +868,12 @@ void CNET_EXPAND(struct cnet_expand_info *info)
 
 	uint8_t **casted_options = (uint8_t **)info->options;
 
-	for (int c = 0; c < info->count; c++) {
+	for (size_t c = 0; c < info->count; c++) {
 		uint8_t *options = casted_options[c];
 
 		if (options == NULL) continue;
 
-		for (int i = 0; i < info->options_size[c]; i++) {
+		for (size_t i = 0; i < info->options_size[c]; i++) {
 			if (i + offset >= info->buffer_size) {
 			    printf("CNET_EXPAND - ERROR, buffer overflow in options\n");
 			    return;
@@ -917,12 +915,14 @@ uint16_t CNET_L4_CSUM(uint16_t type, void *l3, void *l4, size_t len)
 	} else if (type == CNET_ETH_IPV6) {
 		struct cnet_ipv6 *ipv6 = (struct cnet_ipv6 *)l3;
 
-		uint16_t *src6_sum = (uint16_t *)ipv6->src;
+		uint16_t temp_src = ipv6->src;
+		uint16_t *src6_sum = (uint16_t *)&temp_src;
 		for (int i = 0; i < 8; i++) {
 			sum += src6_sum[i];
 		}
 
-		uint16_t *dst6_sum = (uint16_t *)ipv6->dst;
+		uint16_t temp_dst = ipv6->dst;
+		uint16_t *dst6_sum = (uint16_t *)&temp_dst;
 		for (int i = 0; i < 8; i++) {
 			sum += dst6_sum[i];
 		}
@@ -949,13 +949,13 @@ uint16_t CNET_L4_CSUM(uint16_t type, void *l3, void *l4, size_t len)
 	return (uint16_t)(sum ^ 0xFFFF);
 }
 
-struct cnet_ntp_dtime CNET_NTP_TIMESTAMP()
+struct cnet_ntp_dtime CNET_NTP_TIMESTAMP(void)
 {
 	struct timeval tv;
 	gettimeofday(&tv, NULL);
 
 	struct cnet_ntp_dtime ts;
-	ts.sec = tv.tv_sec + 2208988800UL;
+	ts.sec = (uint32_t)((uint64_t)tv.tv_sec + 2208988800UL);
 	ts.frc = (uint32_t)((double)tv.tv_usec * (4294967296.0/1000000.0));
 
 	return ts;

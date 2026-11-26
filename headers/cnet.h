@@ -89,7 +89,7 @@ static inline uint32_t CNET_LITTLE32(uint32_t bdata);
 static inline void cnet_xorrand(uint32_t state, uint32_t *xorstate);
 static inline void *CNET_CREATE_LAYER(uint8_t *pkt, int *offset, int size);
 
-uint32_t CNET_GET_IP_TIMESTAMP();
+uint32_t CNET_GET_IP_TIMESTAMP(void);
 uint16_t CNET_L3_CSUM(void *ndata, size_t nlen);
 uint16_t CNET_L4_CSUM(uint16_t type, void *l3, void *l4, size_t len);
 void CNET_IP_BYTES(void *cipb, char sip[]);
@@ -101,7 +101,7 @@ void CNET_PACKET_TCP_FAST_SET_INFO(struct cnet_tcp_info *info, uint8_t flag);
 void CNET_EXPAND(struct cnet_expand_info *info);
 int CNET_RAND(int min, int max);
 
-struct cnet_ntp_dtime CNET_NTP_TIMESTAMP();
+struct cnet_ntp_dtime CNET_NTP_TIMESTAMP(void);
 cnet_errno_t CNET_PACKET_TCP_FAST_SET(union cnet_packet_fast_config *pfc, struct cnet_tcp *tcp, void *ip, uint8_t type);
 cnet_errno_t CNET_PACKET_UDP_FAST_SET(union cnet_packet_fast_config *pfc, struct cnet_udp *udp, void *ip, uint8_t type);
 cnet_errno_t CNET_PACKET_IP_FAST_SET(union cnet_packet_fast_config *pfc, struct cnet_ip *ip, uint8_t options);
@@ -344,7 +344,7 @@ static inline void CNET_SET_SMAC(void *eth, void *sbytes)
 static inline uint16_t CNET_BIG16(uint16_t bdata)
 {
 #if __BYTE_ORDER == __LITTLE_ENDIAN
-	return (uint16_t)(bdata & 0x00FF) << 8 | (bdata & 0xFF00) >> 8;
+	return (uint16_t)((uint16_t)(bdata & 0x00FF) << 8 | (bdata & 0xFF00) >> 8);
 #else
     return bdata;
 #endif
@@ -353,7 +353,7 @@ static inline uint16_t CNET_BIG16(uint16_t bdata)
 static inline uint16_t CNET_LITTLE16(uint16_t bdata)
 {
 #if __BYTE_ORDER == __BIG_ENDIAN
-    return (uint16_t)(bdata & 0x00FF) << 8 | (bdata & 0xFF00) >> 8;
+    return (uint16_t)((uint16_t)(bdata & 0x00FF) << 8 | (bdata & 0xFF00) >> 8);
 #else
     return bdata;
 #endif
@@ -362,7 +362,7 @@ static inline uint16_t CNET_LITTLE16(uint16_t bdata)
 static inline uint32_t CNET_BIG32(uint32_t bdata)
 {
 #if __BYTE_ORDER == __LITTLE_ENDIAN
-	return (uint32_t)(bdata & 0x000000FF) << 24 | (bdata & 0x0000FF00) << 8 | (bdata & 0x00FF0000) >> 8 | (bdata & 0xFF000000) >> 24;
+	return (uint32_t)((uint32_t)(bdata & 0x000000FF) << 24 | (bdata & 0x0000FF00) << 8 | (bdata & 0x00FF0000) >> 8 | (bdata & 0xFF000000) >> 24);
 #else
     return bdata;
 #endif
@@ -371,7 +371,7 @@ static inline uint32_t CNET_BIG32(uint32_t bdata)
 static inline uint32_t CNET_LITTLE32(uint32_t bdata)
 {
 #if __BYTE_ORDER == __BIG_ENDIAN
-    return (uint32_t)(bdata & 0x000000FF) << 24 | (bdata & 0x0000FF00) << 8 | (bdata & 0x00FF0000) >> 8 | (bdata & 0xFF000000) >> 24;
+    return (uint32_t)((uint32_t)(bdata & 0x000000FF) << 24 | (bdata & 0x0000FF00) << 8 | (bdata & 0x00FF0000) >> 8 | (bdata & 0xFF000000) >> 24);
 #else
     return bdata;
 #endif
