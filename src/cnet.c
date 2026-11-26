@@ -11,46 +11,46 @@ definition of CNET_PLATFORM_LINUX in the <cnet_platform.h> file
 #if defined(CNET_PLATFORM_LINUX)
     cnet_errno_t CNET_GET_TCP_INFO(int socket, struct cnet_tcp_info *info)
     {
-	    struct tcp_info linux;
-	    socklen_t len = sizeof(linux);
+	    struct tcp_info linfo;
+	    socklen_t len = sizeof(linfo);
 
-	    CNET_MEMSET(&linux, len);
+	    CNET_MEMSET(&linfo, len);
 	    CNET_MEMSET(info, sizeof(*info));
 
-	    if (getsockopt(socket, CNET_IP_TCP, TCP_INFO, &linux, &len) < 0) return CNET_ERR_SOCKET;
+	    if (getsockopt(socket, CNET_IP_TCP, TCP_INFO, &linfo, &len) < 0) return CNET_ERR_SOCKET;
 
-	    info->state = linux.tcpi_state;
-	    info->cwnd = linux.tcpi_snd_cwnd;
-	    info->rtt = linux.tcpi_rtt;
-	    info->rttv = linux.tcpi_rttvar;
-	    info->smss = linux.tcpi_snd_mss;
-	    info->unack = linux.tcpi_unacked;
-	    info->lost = linux.tcpi_lost;
-	    info->probes = linux.tcpi_probes;
-	    info->off = linux.tcpi_backoff;
-	    info->options = linux.tcpi_options;
-	    info->sscale = linux.tcpi_snd_wscale;
-	    info->rscale = linux.tcpi_rcv_wscale;
-	    info->rto = linux.tcpi_rto;
-	    info->ato = linux.tcpi_ato;
-	    info->rmss = linux.tcpi_rcv_mss;
-	    info->pmtu = linux.tcpi_pmtu;
-	    info->sack = linux.tcpi_sacked;
-	    info->ret = linux.tcpi_retrans;
-	    info->ackets = linux.tcpi_retransmits;
-	    info->las = linux.tcpi_last_ack_sent;
-	    info->lds = linux.tcpi_last_data_sent;
-	    info->lar = linux.tcpi_last_ack_recv;
-	    info->ldr = linux.tcpi_last_data_recv;
-	    info->reorder = linux.tcpi_reordering;
-	    info->rspace = linux.tcpi_rcv_space;
-	    info->tret = linux.tcpi_total_retrans;
-	    info->advmss = linux.tcpi_advmss;
-	    info->sth = linux.tcpi_snd_ssthresh;
-	    info->rrtt = linux.tcpi_rcv_rtt;
-	    info->rth = linux.tcpi_rcv_ssthresh;
+	    info->state = linfo.tcpi_state;
+	    info->cwnd = linfo.tcpi_snd_cwnd;
+	    info->rtt = linfo.tcpi_rtt;
+	    info->rttv = linfo.tcpi_rttvar;
+	    info->smss = linfo.tcpi_snd_mss;
+	    info->unack = linfo.tcpi_unacked;
+	    info->lost = linfo.tcpi_lost;
+	    info->probes = linfo.tcpi_probes;
+	    info->off = linfo.tcpi_backoff;
+	    info->options = linfo.tcpi_options;
+	    info->sscale = linfo.tcpi_snd_wscale;
+	    info->rscale = linfo.tcpi_rcv_wscale;
+	    info->rto = linfo.tcpi_rto;
+	    info->ato = linfo.tcpi_ato;
+	    info->rmss = linfo.tcpi_rcv_mss;
+	    info->pmtu = linfo.tcpi_pmtu;
+	    info->sack = linfo.tcpi_sacked;
+	    info->ret = linfo.tcpi_retrans;
+	    info->ackets = linfo.tcpi_retransmits;
+	    info->las = linfo.tcpi_last_ack_sent;
+	    info->lds = linfo.tcpi_last_data_sent;
+	    info->lar = linfo.tcpi_last_ack_recv;
+	    info->ldr = linfo.tcpi_last_data_recv;
+	    info->reorder = linfo.tcpi_reordering;
+	    info->rspace = linfo.tcpi_rcv_space;
+	    info->tret = linfo.tcpi_total_retrans;
+	    info->advmss = linfo.tcpi_advmss;
+	    info->sth = linfo.tcpi_snd_ssthresh;
+	    info->rrtt = linfo.tcpi_rcv_rtt;
+	    info->rth = linfo.tcpi_rcv_ssthresh;
 
-	    switch (linux.tcpi_ca_state)
+	    switch (linfo.tcpi_ca_state)
 	    {
 		    case TCP_CA_Open:
 		      info->cnet_state_ca = CNET_TCP_OPEN;
