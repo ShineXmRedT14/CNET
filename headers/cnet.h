@@ -157,7 +157,7 @@ cnet_errno_t CNET_PACKET_ETHER_FAST_SET(union cnet_packet_fast_config *pfc, stru
 	    return uptr;
     }
 
-	static inline void CNET_SIZE_SET(struct cnet_buffer *cbuf, int index, size_t offset)
+	static inline void CNET_SIZE_SET(struct cnet_buffer *cbuf, int index, int offset)
     {
 	    cbuf->size[index] = offset;
     }
