@@ -103,7 +103,7 @@ int CNET_RAND(int min, int max);
 
 struct cnet_ntp_dtime CNET_NTP_TIMESTAMP(void);
 cnet_errno_t CNET_PACKET_TCP_FAST_SET(union cnet_packet_fast_config *pfc, struct cnet_tcp *tcp, void *ip, uint16_t type);
-cnet_errno_t CNET_PACKET_UDP_FAST_SET(union cnet_packet_fast_config *pfc, struct cnet_udp *udp, void *ip, uint8_t type);
+cnet_errno_t CNET_PACKET_UDP_FAST_SET(union cnet_packet_fast_config *pfc, struct cnet_udp *udp, void *ip, uint16_t type);
 cnet_errno_t CNET_PACKET_IP_FAST_SET(union cnet_packet_fast_config *pfc, struct cnet_ip *ip, uint8_t options);
 cnet_errno_t CNET_PACKET_ETHER_FAST_SET(union cnet_packet_fast_config *pfc, struct cnet_ether *ether);
 
