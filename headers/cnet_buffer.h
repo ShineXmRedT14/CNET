@@ -12,9 +12,6 @@
     #include <sys/socket.h>
     #include <cnet_helper.h>
 
-    #define APY 64
-    #define APX 2048
-
     struct cnet_ring
     {
 	    int sockfd;
