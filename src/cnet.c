@@ -714,7 +714,7 @@ void CNET_PACKET_IP_FAST_SET_TIMESTAMP(struct cnet_ip_timestamp *timestamp, uint
 	} else {printf("CNET_PACKET_IP_FAST_SET_TIMESTAMP: Warning, Unreadable Flag (%d)\n", (int)timestamp->flags);}
 }
 
-void CNET_PACKET_TCP_FAST_SET_INFO(struct cnet_tcp_info *info, uint8_t flag)
+void CNET_PACKET_TCP_FAST_SET_INFO(struct cnet_tcp_info *info, uint16_t flag)
 {
 	if (flag == CNET_TCP_INFO_LOCAL) return;
 
