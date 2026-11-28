@@ -1,0 +1,1 @@
+tcp.c, gcc command: gcc test.c -o test -L/usr/local/lib -lcnet -l:cnet.so -Wl,-rpath,/usr/local/lib
