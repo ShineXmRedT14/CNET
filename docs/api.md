@@ -129,7 +129,7 @@ CNET_SET_DMAC(eth, &macb);
 Internet checksum over an L3 header (typically the 20-byte IPv4 header).
 Returns the value to store in `ip->sum`.
 
-### `uint16_t CNET_L4_CSUM(uint8_t type, void *l3, void *l4, size_t len)`
+### `uint16_t CNET_L4_CSUM(uint16_t type, void *l3, void *l4, size_t len)`
 Pseudo-header checksum for TCP/UDP/ICMP. `type` selects the L3 EtherType:
 
 | `type` | Meaning |
