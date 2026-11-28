@@ -178,7 +178,7 @@ bytes after `struct cnet_ip` and account for them in `offset`; the checksum
 is still computed over the fixed 20-byte header, so recompute it over the full
 60 bytes afterwards.
 
-### `cnet_errno_t CNET_PACKET_TCP_FAST_SET(union cnet_packet_fast_config *pfc, struct cnet_tcp *tcp, void *ip, uint8_t type)`
+### `cnet_errno_t CNET_PACKET_TCP_FAST_SET(union cnet_packet_fast_config *pfc, struct cnet_tcp *tcp, void *ip, uint16_t type)`
 
 Reads `pfc->tcp.{doff,flags,src,dst,seq,aseq,win,uptr}`, sets `res1/res2`
 from the `CNET_TCP_RES*` defaults, and computes the checksum using `ip`
