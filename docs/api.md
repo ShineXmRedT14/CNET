@@ -184,7 +184,7 @@ Reads `pfc->tcp.{doff,flags,src,dst,seq,aseq,win,uptr}`, sets `res1/res2`
 from the `CNET_TCP_RES*` defaults, and computes the checksum using `ip`
 (`struct cnet_ip *`) and `type` (`CNET_ETH_IP` or `CNET_ETH_IPV6`).
 
-### `cnet_errno_t CNET_PACKET_UDP_FAST_SET(union cnet_packet_fast_config *pfc, struct cnet_udp *udp, void *ip, uint8_t type)`
+### `cnet_errno_t CNET_PACKET_UDP_FAST_SET(union cnet_packet_fast_config *pfc, struct cnet_udp *udp, void *ip, uint16_t type)`
 
 Reads `pfc->udp.{src,dst}`, sets `len` to `sizeof(struct cnet_udp)` and
 computes the checksum.
