@@ -196,7 +196,7 @@ Append one timestamp entry to an IPv4 timestamp option. `custom` is
 `CNET_IP_CUSTOM` to append. `ip` is used when the flag mode stores addresses
 (`CNET_IP_TSP_ADDR` / `CNET_IP_TSP_DEFINED`).
 
-### `void CNET_PACKET_TCP_FAST_SET_INFO(struct cnet_tcp_info *info, uint8_t flag)`
+### `void CNET_PACKET_TCP_FAST_SET_INFO(struct cnet_tcp_info *info, uint16_t flag)`
 
 Convert all 32-bit counters in a `cnet_tcp_info` to big-endian. Pass
 `CNET_TCP_INFO_LOCAL` to skip conversion when the statistics stay local.
