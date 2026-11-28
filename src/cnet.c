@@ -570,7 +570,7 @@ No functions in the ESP32 platform
 Main functions
 */
 
-cnet_errno_t CNET_PACKET_TCP_FAST_SET(union cnet_packet_fast_config *pfc, struct cnet_tcp *tcp, void *ip, uint8_t type)
+cnet_errno_t CNET_PACKET_TCP_FAST_SET(union cnet_packet_fast_config *pfc, struct cnet_tcp *tcp, void *ip, uint16_t type)
 {
 	if (
 		pfc->tcp.src > 0xFFFF ||
@@ -596,7 +596,7 @@ cnet_errno_t CNET_PACKET_TCP_FAST_SET(union cnet_packet_fast_config *pfc, struct
 	return CNET_SCFL;
 }
 
-cnet_errno_t CNET_PACKET_UDP_FAST_SET(union cnet_packet_fast_config *pfc, struct cnet_udp *udp, void *ip, uint8_t type)
+cnet_errno_t CNET_PACKET_UDP_FAST_SET(union cnet_packet_fast_config *pfc, struct cnet_udp *udp, void *ip, uint16_t type)
 {
 	if (
 		pfc->udp.src > 0xFFFF ||
